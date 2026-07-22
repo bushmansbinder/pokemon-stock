@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Chinese Gem Vol 4 slim",
+        "image": "images/chinese-gem-vol-4-slim.webp",
+        "cost": 65,
+        "stock": 20
+    },
+    {
+        "name": "Chinese Gem Vol 5 slim",
+        "image": "images/chinese-gem-vol-5-slim.webp",
+        "cost": 75,
+        "stock": 5
+    },
+    {
+        "name": "Chinese 151 Surprise slim",
+        "image": "images/chinese-151-surprise-slim.webp",
+        "cost": 80,
+        "stock": 6
+    }
+]
