@@ -30,27 +30,20 @@
                 const inStock = items.filter(item => item.stock > 0);
                 const outOfStock = items.filter(item => item.stock === 0);
 
-                // Recombine: Out-of-stock items go to the bottom
-                const sortedItems = [...inStock, ...outOfStock];
-
                 // Clear the container before loading
                 inventoryContainer.innerHTML = '';
 
-                sortedItems.forEach(item => {
-                    const isOutOfStock = item.stock === 0;
-
-                    // Apply greyscale and opacity if the item is out of stock 
+                // A reusable blueprint for drawing the cards
+                function createCardHTML(item, isOutOfStock) {
                     const cardClass = isOutOfStock
                         ? "bg-white rounded-xl shadow-sm p-2.5 opacity-50 grayscale transition-all w-full"
                         : "bg-white rounded-xl shadow-sm p-2.5 transition-all w-full";
 
-                    // Set the stock display based on availability (Keeping the big text-2xl fonts)
                     const stockDisplay = isOutOfStock
                         ? `<span class="text-red-600 font-black text-xl line-through decoration-2 mt-0.5">0</span>`
                         : `<span class="text-2xl font-black text-zinc-900 leading-none mt-0.5">${item.stock}</span>`;
 
-                    // HTML Template (Reverted to w-1/3 for perfect 33% splits)
-                    const html = `
+                    return `
                         <div class="${cardClass}">
                             <h2 class="text-base font-bold text-center text-zinc-800 mb-1.5 leading-tight">${item.name}</h2>
                             
@@ -73,8 +66,30 @@
                             </div>
                         </div>
                     `;
-                    inventoryContainer.innerHTML += html;
+                }
+
+                // 1. Draw all IN STOCK items first
+                inStock.forEach(item => {
+                    inventoryContainer.innerHTML += createCardHTML(item, false);
                 });
+
+                // 2. If there are sold out items, draw the HEADING, then the items
+                if (outOfStock.length > 0) {
+                    // The OUT OF STOCK Divider
+                    inventoryContainer.innerHTML += `
+                        <div class="pt-6 pb-1 flex items-center justify-center w-full opacity-60">
+                            <div class="flex-1 h-px bg-zinc-300"></div>
+                            <span class="mx-4 text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em]">Out of Stock</span>
+                            <div class="flex-1 h-px bg-zinc-300"></div>
+                        </div>
+                    `;
+                    
+                    // Draw the zero-stock items
+                    outOfStock.forEach(item => {
+                        inventoryContainer.innerHTML += createCardHTML(item, true);
+                    });
+                }
+
             } catch (error) {
                 inventoryContainer.innerHTML = `<p class="text-center text-sm font-bold text-red-500">Could not load inventory.</p>`;
             }
