@@ -3,34 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokemon Item Showcase</title>
+    <title>Pokemon Stock</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-zinc-100 min-h-screen p-4 pb-12 font-sans">
 
-    <div class="max-w-md mx-auto pt-6 pb-8 text-center">
-        <h1 class="text-3xl font-black text-zinc-800 tracking-tight">Available Stock</h1>
+    <div class="max-w-sm mx-auto pt-6 pb-8 text-center">
+        <h1 class="text-3xl font-black text-zinc-800 tracking-tight">Pokemon Stock</h1>
         <p class="text-zinc-500 text-sm mt-1">Scroll to see what's currently in hand</p>
     </div>
 
-    <div class="max-w-md mx-auto space-y-6" id="inventory-list">
+    <div class="max-w-sm mx-auto space-y-5" id="inventory-list">
         </div>
 
     <script>
         const inventoryContainer = document.getElementById('inventory-list');
 
-        // ⚙️ THE ENGINE: This fetches your data from the separate JSON file
+        // ⚙️ THE ENGINE: Fetches your data from inventory.json
         async function loadInventory() {
             try {
-                // Look for the separate inventory.json file sitting in GitHub
                 const response = await fetch('inventory.json');
                 const items = await response.json();
 
-                // Split the items: anything with stock > 0 stays in order, stock === 0 gets separated
+                // Split the items based on stock
                 const inStock = items.filter(item => item.stock > 0);
                 const outOfStock = items.filter(item => item.stock === 0);
 
-                // Recombine them so all out-of-stock items are pushed to the very bottom
+                // Recombine: Out-of-stock items go to the bottom
                 const sortedItems = [...inStock, ...outOfStock];
 
                 // Clear the container before loading
@@ -44,25 +43,30 @@
                         ? "bg-white rounded-2xl shadow-sm p-4 opacity-50 grayscale transition-all"
                         : "bg-white rounded-2xl shadow-md p-4 transition-all";
 
-                    // Cross out the stock text if it's 0
-                    const stockText = isOutOfStock
-                        ? `<span class="text-red-600 font-bold line-through decoration-2">Out of Stock</span>`
-                        : `<span class="text-zinc-600 font-medium">Stock: <span class="font-black text-zinc-900">${item.stock}</span></span>`;
+                    // Set the stock display based on availability
+                    const stockDisplay = isOutOfStock
+                        ? `<span class="text-red-600 font-black text-lg line-through decoration-2 mt-1">0</span>`
+                        : `<span class="text-2xl font-black text-zinc-900 leading-none mt-1">${item.stock}</span>`;
 
-                    // HTML Template for each item
+                    // HTML Template for the new 3-column layout
                     const html = `
                         <div class="${cardClass}">
-                            <h2 class="text-xl font-bold text-center text-zinc-800 mb-3 leading-tight">${item.name}</h2>
+                            <h2 class="text-lg font-bold text-center text-zinc-800 mb-3 leading-tight">${item.name}</h2>
                             
-                            <div class="flex bg-zinc-50 border border-zinc-200 rounded-xl p-3 items-center">
+                            <div class="flex bg-zinc-50 border border-zinc-200 rounded-xl p-2 items-center">
                                 
-                                <div class="w-2/5 flex-shrink-0">
-                                    <img src="${item.image}" alt="${item.name}" class="w-full h-auto aspect-square object-cover rounded-lg shadow-inner bg-zinc-200">
+                                <div class="w-1/3 flex-shrink-0 p-1">
+                                    <img src="${item.image}" alt="${item.name}" class="w-full h-auto aspect-square object-cover rounded-md shadow-sm bg-zinc-200">
                                 </div>
                                 
-                                <div class="w-3/5 pl-5 flex flex-col justify-center">
-                                    <div class="text-3xl font-black text-emerald-600 mb-1">$${item.cost}</div>
-                                    <div class="text-lg tracking-wide">${stockText}</div>
+                                <div class="w-1/3 flex flex-col items-center justify-center border-r border-zinc-200 px-1 py-2">
+                                    <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Cost</span>
+                                    <span class="text-xl font-black text-emerald-600 leading-none mt-1">$${item.cost}</span>
+                                </div>
+                                
+                                <div class="w-1/3 flex flex-col items-center justify-center px-1 py-2">
+                                    <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Stock</span>
+                                    ${stockDisplay}
                                 </div>
                                 
                             </div>
@@ -71,7 +75,7 @@
                     inventoryContainer.innerHTML += html;
                 });
             } catch (error) {
-                // If it can't find the file or there is a typo in the JSON, it shows a safe error message
+                // Safe error message if the JSON is missing or broken
                 inventoryContainer.innerHTML = `<p class="text-center font-bold text-red-500">Could not load inventory. Please check your inventory.json file.</p>`;
             }
         }
