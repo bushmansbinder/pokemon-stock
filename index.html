@@ -43,8 +43,33 @@
                         ? `<span class="text-red-600 font-black text-xl line-through decoration-2 mt-0.5">0</span>`
                         : `<span class="text-2xl font-black text-zinc-900 leading-none mt-0.5">${item.stock}</span>`;
 
+                    // --- TAGS LOGIC ---
+                    let tagsHTML = '';
+                    
+                    // FOMO Tag (Auto-triggers on 1 or 2 stock)
+                    if (item.stock === 1 || item.stock === 2) {
+                        tagsHTML += `<span class="bg-red-100 text-red-600 text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider shadow-sm">🚨 Almost Gone</span>`;
+                    }
+                    
+                    // New Tag (Manual from JSON)
+                    if (item.isNew && !isOutOfStock) {
+                        tagsHTML += `<span class="bg-amber-100 text-amber-600 text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider shadow-sm">✨ New</span>`;
+                    }
+
+                    // Popular Tag (Manual from JSON)
+                    if (item.isPopular && !isOutOfStock) {
+                        tagsHTML += `<span class="bg-violet-100 text-violet-600 text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider shadow-sm">🔥 Popular</span>`;
+                    }
+
+                    // Wrap the tags in a centered container if any exist
+                    const tagsContainer = tagsHTML 
+                        ? `<div class="flex justify-center space-x-1.5 mb-2">${tagsHTML}</div>` 
+                        : '';
+
                     return `
                         <div class="${cardClass}">
+                            ${tagsContainer}
+
                             <h2 class="text-base font-bold text-center text-zinc-800 mb-1.5 leading-tight">${item.name}</h2>
                             
                             <div class="flex bg-zinc-50 border border-zinc-200 rounded-lg p-1.5 items-center">
