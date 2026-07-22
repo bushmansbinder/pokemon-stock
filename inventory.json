@@ -3,36 +3,48 @@
         "name": "Chinese Chasing Glory Together CSV10C Slim Box",
         "image": "images/chinese-chasing-glory-together-CSV10C-slim-box.webp",
         "cost": 65,
-        "stock": 4
+        "stock": 4,
+        "isNew": true,
+        "isPopular": true
     },
     {
         "name": "Chinese Terastal Gathering CSV9.5C Slim Box",
         "image": "images/chinese-terastal-gathering-CSV9.5C-slim-box.webp",
         "cost": 0,
-        "stock": 0
+        "stock": 0,
+        "isNew": false,
+        "isPopular": false
     },
     {
         "name": "Chinese Gem Vol 5 CBB5C Slim Box",
         "image": "images/chinese-gem-vol-5-CBB5C-slim-box.webp",
         "cost": 75,
-        "stock": 6
+        "stock": 6,
+        "isNew": false,
+        "isPopular": false
     },
     {
         "name": "Chinese Gem Vol 4 CBB4C Slim Box",
         "image": "images/chinese-gem-vol-4-CBB4C-slim-box.webp",
         "cost": 65,
-        "stock": 22
+        "stock": 22,
+        "isNew": false,
+        "isPopular": true
     },
     {
         "name": "Chinese Gem Vol 3 CBB3C Slim Box",
         "image": "images/chinese-gem-vol-3-CBB3C-slim-box.webp",
         "cost": 90,
-        "stock": 0
+        "stock": 0,
+        "isNew": false,
+        "isPopular": false
     },
     {
         "name": "Chinese 151 Surprise 151C Slim Box",
         "image": "images/chinese-151-suprise-151C-slim-box.webp",
         "cost": 90,
-        "stock": 1
+        "stock": 1,
+        "isNew": false,
+        "isPopular": false
     }
 ]
