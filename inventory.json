@@ -5,13 +5,13 @@
         "cost": 65,
         "stock": 4,
         "isNew": true,
-        "isPopular": true
+        "isPopular": false
     },
     {
         "name": "Chinese Terastal Gathering CSV9.5C Slim Box",
         "image": "images/chinese-terastal-gathering-CSV9.5C-slim-box.webp",
         "cost": 0,
-        "stock": 0,
+        "stock": 3,
         "isNew": false,
         "isPopular": false
     },
@@ -29,13 +29,13 @@
         "cost": 65,
         "stock": 22,
         "isNew": false,
-        "isPopular": true
+        "isPopular": false
     },
     {
         "name": "Chinese Gem Vol 3 CBB3C Slim Box",
         "image": "images/chinese-gem-vol-3-CBB3C-slim-box.webp",
         "cost": 90,
-        "stock": 0,
+        "stock": 3,
         "isNew": false,
         "isPopular": false
     },
