@@ -45,12 +45,12 @@
                         ? "bg-white rounded-xl shadow-sm p-2.5 opacity-50 grayscale transition-all w-full"
                         : "bg-white rounded-xl shadow-sm p-2.5 transition-all w-full";
 
-                    // Set the stock display based on availability 
+                    // Set the stock display based on availability (Increased to text-2xl and text-xl for the 0)
                     const stockDisplay = isOutOfStock
-                        ? `<span class="text-red-600 font-black text-base line-through decoration-2 mt-0.5">0</span>`
-                        : `<span class="text-xl font-black text-zinc-900 leading-none mt-0.5">${item.stock}</span>`;
+                        ? `<span class="text-red-600 font-black text-xl line-through decoration-2 mt-0.5">0</span>`
+                        : `<span class="text-2xl font-black text-zinc-900 leading-none mt-0.5">${item.stock}</span>`;
 
-                    // HTML Template for the 40/30/30 layout
+                    // HTML Template
                     const html = `
                         <div class="${cardClass}">
                             <h2 class="text-base font-bold text-center text-zinc-800 mb-1.5 leading-tight">${item.name}</h2>
@@ -63,7 +63,7 @@
                                 
                                 <div class="w-[30%] flex flex-col items-center justify-center border-r border-zinc-200 px-1 py-1">
                                     <span class="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">Cost</span>
-                                    <span class="text-lg font-black text-emerald-600 leading-none mt-0.5">$${item.cost}</span>
+                                    <span class="text-2xl font-black text-emerald-600 leading-none mt-0.5">$${item.cost}</span>
                                 </div>
                                 
                                 <div class="w-[30%] flex flex-col items-center justify-center px-1 py-1">
@@ -77,7 +77,6 @@
                     inventoryContainer.innerHTML += html;
                 });
             } catch (error) {
-                // Safe error message if the JSON is missing or broken
                 inventoryContainer.innerHTML = `<p class="text-center text-sm font-bold text-red-500">Could not load inventory.</p>`;
             }
         }
