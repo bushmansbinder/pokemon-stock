@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javon's Pokemon Stock</title>
+    <title>Pokemon Stock</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-zinc-100 min-h-screen p-4 pb-12 font-sans">
+<body class="bg-zinc-200 min-h-screen p-4 pb-12 font-sans">
 
     <div class="max-w-md mx-auto pt-2 pb-5 text-center">
-        <h1 class="text-2xl font-black text-zinc-800 tracking-tight">Javon's Pokemon Stock</h1>
+        <h1 class="text-2xl font-black text-zinc-800 tracking-tight">Pokemon Stock</h1>
     </div>
 
-    <div class="max-w-md mx-auto w-full space-y-3" id="inventory-list">
+    <div class="max-w-md mx-auto w-full space-y-3.5" id="inventory-list">
         </div>
 
     <script>
@@ -35,9 +35,10 @@
 
                 // A reusable blueprint for drawing the cards
                 function createCardHTML(item, isOutOfStock) {
+                    // 🎨 FIX: Added shadow-md and a subtle border to make the white box POP
                     const cardClass = isOutOfStock
-                        ? "bg-white rounded-xl shadow-sm p-2.5 opacity-50 grayscale transition-all w-full"
-                        : "bg-white rounded-xl shadow-sm p-2.5 transition-all w-full";
+                        ? "bg-white rounded-xl shadow-md border border-zinc-100 p-2.5 opacity-50 grayscale transition-all w-full"
+                        : "bg-white rounded-xl shadow-md border border-zinc-100 p-2.5 transition-all w-full";
 
                     const stockDisplay = isOutOfStock
                         ? `<span class="text-red-600 font-black text-xl line-through decoration-2 mt-0.5">0</span>`
@@ -46,22 +47,18 @@
                     // --- TAGS LOGIC ---
                     let tagsHTML = '';
                     
-                    // FOMO Tag (Auto-triggers on 1 or 2 stock)
                     if (item.stock === 1 || item.stock === 2) {
                         tagsHTML += `<span class="bg-red-100 text-red-600 text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider shadow-sm">🚨 Almost Gone</span>`;
                     }
                     
-                    // New Tag (Manual from JSON)
                     if (item.isNew && !isOutOfStock) {
                         tagsHTML += `<span class="bg-amber-100 text-amber-600 text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider shadow-sm">✨ New</span>`;
                     }
 
-                    // Popular Tag (Manual from JSON)
                     if (item.isPopular && !isOutOfStock) {
                         tagsHTML += `<span class="bg-violet-100 text-violet-600 text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider shadow-sm">🔥 Popular</span>`;
                     }
 
-                    // Wrap the tags in a centered container if any exist
                     const tagsContainer = tagsHTML 
                         ? `<div class="flex justify-center space-x-1.5 mb-2">${tagsHTML}</div>` 
                         : '';
@@ -100,16 +97,14 @@
 
                 // 2. If there are sold out items, draw the HEADING, then the items
                 if (outOfStock.length > 0) {
-                    // The OUT OF STOCK Divider
                     inventoryContainer.innerHTML += `
                         <div class="pt-6 pb-1 flex items-center justify-center w-full opacity-60">
-                            <div class="flex-1 h-px bg-zinc-300"></div>
+                            <div class="flex-1 h-px bg-zinc-400"></div>
                             <span class="mx-4 text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em]">Out of Stock</span>
-                            <div class="flex-1 h-px bg-zinc-300"></div>
+                            <div class="flex-1 h-px bg-zinc-400"></div>
                         </div>
                     `;
                     
-                    // Draw the zero-stock items
                     outOfStock.forEach(item => {
                         inventoryContainer.innerHTML += createCardHTML(item, true);
                     });
@@ -120,7 +115,6 @@
             }
         }
 
-        // Run the engine when the page loads
         loadInventory();
     </script>
 </body>
